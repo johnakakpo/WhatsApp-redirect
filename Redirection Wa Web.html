@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Redirection WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
     window.onload = function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const phone = urlParams.get('phone');
-      const webhookURL = 'https://hook.eu2.make.com/ongv31c5eyebet5fhw4g23ikp3cmhocu'; // Mets ton vrai lien ici
+      // Ton numéro WhatsApp (sans le +)
+      var numero = "22896045482";
 
-      // Envoi à Make
-      fetch(webhookURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      // Envoi du numéro au webhook Make
+      fetch("https://hook.eu2.make.com/ongv31c5eyebet5fhw4g23ikp3cmhocu", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          numero: phone,
-          date: new Date().toLocaleDateString(),
-          heure: new Date().toLocaleTimeString()
+          phone: numero,
+          timestamp: new Date().toISOString()
         })
+      }).catch(error => {
+        console.error("Erreur d'envoi au webhook :", error);
       });
 
-      // Redirection vers WhatsApp
-      window.location.href = `https://wa.me/22896045482`;
-    }
+      // Redirection automatique vers WhatsApp
+      window.location.href = "https://wa.me/" + numero;
+    };
   </script>
 </head>
 <body>
-  <p>Redirection vers WhatsApp...</p>
+  <h2 style="text-align:center; margin-top: 50px;">Veuillez patienter, redirection vers WhatsApp...</h2>
 </body>
 </html>
