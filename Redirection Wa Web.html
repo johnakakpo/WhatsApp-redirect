@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Redirection WhatsApp</title>
+  <script>
+    window.onload = function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const phone = urlParams.get('phone');
+      const webhookURL = 'https://hook.us1.make.com/xxxxxxxxxxxxxxxxxx'; // Mets ton vrai lien ici
+
+      // Envoi à Make
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          numero: phone,
+          date: new Date().toLocaleDateString(),
+          heure: new Date().toLocaleTimeString()
+        })
+      });
+
+      // Redirection vers WhatsApp
+      window.location.href = `https://wa.me/${phone}`;
+    }
+  </script>
+</head>
+<body>
+  <p>Redirection vers WhatsApp...</p>
+</body>
+</html>
